@@ -10,7 +10,7 @@ public class Product {
     @Id
     private String name;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "brand", nullable = false)
     private Brand brand;
 

@@ -20,4 +20,11 @@ public class Brand {
     private List<Product> products;
 
 
+    public Brand(String name) {
+        this.name = name;
+    }
+
+    public Brand() {
+
+    }
 }

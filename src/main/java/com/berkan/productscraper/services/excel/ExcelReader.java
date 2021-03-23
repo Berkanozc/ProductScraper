@@ -31,10 +31,10 @@ public class ExcelReader {
     }
 
     /**
-     * Reads the given workbook and converts it to the model WebStore
+     * Reads the given workbook and converts it to the model WebStore.
      *
-     * @param wb found workbook
-     * @return list of all fetched WebStores
+     * @param wb found workbook.
+     * @return list of all fetched WebStores.
      */
     private static List<WebStore> go(Workbook wb) {
 
