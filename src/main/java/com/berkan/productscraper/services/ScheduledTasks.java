@@ -23,7 +23,7 @@ public class ScheduledTasks {
     public void readScrapeInformation() throws IOException {
         // Read excel file and save all to database
         webStoreRepository.saveAll(
-                ExcelReader.readWebStoreFromExcelFile("classpath:static/WebSelectors.xlsx")
+                ExcelReader.readWebStoreFromExcelFile("classpath:static/WebStores.xlsx")
         );
     }
 
