@@ -1,7 +1,9 @@
 package com.berkan.productscraper.services;
 
+import com.berkan.productscraper.models.Brand;
 import com.berkan.productscraper.models.Product;
 import com.berkan.productscraper.models.WebStore;
+import com.berkan.productscraper.repositories.BrandRepository;
 import com.berkan.productscraper.repositories.ProductRepository;
 import com.berkan.productscraper.repositories.WebStoreRepository;
 import com.berkan.productscraper.services.excel.ExcelReader;
@@ -23,6 +25,9 @@ public class ScheduledTasks {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private BrandRepository brandRepository;
 
     /**
      * Scrape the web stores that are stored in the database and save the scraped products in the database.
@@ -50,9 +55,18 @@ public class ScheduledTasks {
      * Save new entries in excel file to database every hour.
      */
     private void readScrapeInformation() throws IOException {
+        // Read entries from Excel file
+        List<WebStore> fetchedWebStores = ExcelReader
+                .readWebStoreFromExcelFile("classpath:static/WebStores.xlsx");
+
         // Read excel file and save all to database
         webStoreRepository.saveAll(
-                ExcelReader.readWebStoreFromExcelFile("classpath:static/WebStores.xlsx")
+                fetchedWebStores
         );
+
+        // Add all new fetched brands
+        for (WebStore fetchedWebStore : fetchedWebStores) {
+            brandRepository.save(new Brand(fetchedWebStore.getBrand()));
+        }
     }
 }
