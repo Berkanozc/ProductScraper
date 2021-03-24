@@ -1,5 +1,8 @@
 package com.berkan.productscraper.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,6 +15,8 @@ public class Image {
     private String url;
 
     @ManyToOne
+    @JsonBackReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "product_name")
     private Product productName;
 

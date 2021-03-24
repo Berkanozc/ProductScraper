@@ -1,6 +1,7 @@
 package com.berkan.productscraper.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,14 +12,15 @@ import java.util.List;
 public class Brand {
 
     @Id
+    @JsonManagedReference
     private String name;
 
     @OneToMany(
             mappedBy = "brand"
     )
-    @JsonBackReference
+    @JsonManagedReference
+    @JsonIgnore
     private List<Product> products;
-
 
     public Brand(String name) {
         this.name = name;

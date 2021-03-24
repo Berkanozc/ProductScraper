@@ -1,5 +1,9 @@
 package com.berkan.productscraper.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,6 +15,7 @@ public class Product {
     private String name;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "brand", nullable = false)
     private Brand brand;
 
@@ -24,6 +29,7 @@ public class Product {
             mappedBy = "productName",
             cascade = CascadeType.ALL
     )
+    @JsonManagedReference
     private List<Image> productImages;
 
     public Product() {
