@@ -33,6 +33,7 @@ public class WebScraper {
         getDriver().get(getWebStore().getURL());
 
         // Locate the overview of all products
+        System.out.println(getWebStore().getURL());
         WebElement productsOverview = getDriver().findElement(By.cssSelector(getWebStore().getProductsOverviewSelector()));
 
         // Get all products per class
@@ -58,15 +59,24 @@ public class WebScraper {
                 foundProducts.add(newProduct);
             } catch (Exception e) {
                 // Show error message when something goes wrong
-                System.out.printf("Something went wrong while fetching the products of the brand: %s", getWebStore().getBrand());
-                System.out.printf("Product: %s", newProduct.getName());
+                System.out.printf("Something went wrong while fetching the products of the brand: %s\n", getWebStore().getBrand());
                 e.printStackTrace();
             }
         }
 
         // Add additional data to the products by visiting their individual page
         for (Product foundProduct : foundProducts) {
-            scrapeAdditionalDataOfProduct(foundProduct);
+            try {
+                scrapeAdditionalDataOfProduct(foundProduct);
+            } catch (Exception e) {
+                System.out.printf("Something went wrong while fetching the products of the brand: %s\n", getWebStore().getBrand());
+            }
+        }
+
+        for (int i = 0; i < foundProducts.size(); i++) {
+            if (foundProducts.get(i).getName() == null) {
+                foundProducts.remove(foundProducts.get(i));
+            }
         }
 
         return foundProducts;
@@ -79,16 +89,40 @@ public class WebScraper {
         newProduct.setName(getDriver().findElement(By.cssSelector(getWebStore().getProductNameSelector())).getText());
 
         if (getDriver().findElements(By.cssSelector(getWebStore().getProductSalePriceSelector())).size() != 0) {
+            String salePrice = getDriver()
+                    .findElement(By.cssSelector(getWebStore()
+                            .getProductSalePriceSelector()))
+                    .getText()
+                    .replace("€", "")
+                    .replace(",", ".");
+
+            if (salePrice.contains("$")) {
+                double temp = Double.parseDouble(salePrice.replace("$", "")) / 0.85;
+                salePrice = Double.toString(temp);
+            }
+
             newProduct.setSalePrice(
                     Double.parseDouble(
-                            getDriver().findElement(By.cssSelector(getWebStore().getProductSalePriceSelector())).getText().replace("€", "").replace(",", ".")
+                            salePrice
                     )
             );
         }
 
+        String standardPrice = getDriver()
+                .findElement(By.cssSelector(getWebStore()
+                        .getProductStandardPriceSelector()))
+                .getText()
+                .replace("€", "")
+                .replace(",", ".");
+
+        if (standardPrice.contains("$")) {
+            double temp = Double.parseDouble(standardPrice.replace("$", "")) / 0.85;
+            standardPrice = Double.toString(temp);
+        }
+
         newProduct.setStandardPrice(
                 Double.parseDouble(
-                        getDriver().findElement(By.cssSelector(getWebStore().getProductStandardPriceSelector())).getText().replace("€", "").replace(",", ".")
+                        standardPrice
                 )
         );
 
