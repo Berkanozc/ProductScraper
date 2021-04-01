@@ -24,7 +24,12 @@ public class WebScraper {
         setDriver(new HtmlUnitDriver());
     }
 
-    public List<Product> scrapeProducts() throws InterruptedException {
+    /**
+     * Scrapes products from website
+     *
+     * @return all found products from the website
+     */
+    public List<Product> scrapeProducts() {
 
         // Create empty list for the products that are going to be fetched
         List<Product> foundProducts = new ArrayList<>();
@@ -82,7 +87,12 @@ public class WebScraper {
         return foundProducts;
     }
 
-    private void scrapeAdditionalDataOfProduct(Product newProduct) throws InterruptedException {
+    /**
+     * Scrapes information of the products from their own page
+     *
+     * @param newProduct with filled in data from the product it's own page
+     */
+    private void scrapeAdditionalDataOfProduct(Product newProduct) {
         // Navigate to the product page
         getDriver().get(newProduct.getRedirectURL());
 
