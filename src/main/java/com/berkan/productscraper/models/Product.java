@@ -1,6 +1,5 @@
 package com.berkan.productscraper.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -9,6 +8,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Product.filter_and_sort_desc_products", query = "SELECT p FROM Product p WHERE p.brand.name LIKE CONCAT('%',?1,'%') AND p.name LIKE CONCAT('%',?2,'%') ORDER BY p.dateAdded DESC"),
+        @NamedQuery(name = "Product.filter_and_sort_asc_products", query = "SELECT p FROM Product p WHERE p.brand.name LIKE CONCAT('%',?1,'%') AND p.name LIKE CONCAT('%',?2,'%') ORDER BY p.dateAdded ASC")
+})
 public class Product {
 
     @Id
