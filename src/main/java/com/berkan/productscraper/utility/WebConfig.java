@@ -11,13 +11,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
 
-    @Value("${jwt.issuer:private company}")
+    @Value("${jwt.issuer}")
     public String issuer;
 
-    @Value("${jwt.pass-phrase:secret blablbalabalbalbalbalablabalbalbalablabalbalablabalbalablablabalb ablablabalbalbal ablaba}")
+    @Value("${jwt.pass-phrase}")
     public String passPhrase;
 
-    @Value("${jwt.duration-of-validity:2400}")
+    @Value("${jwt.expiration-seconds}")
     public int tokenDurationOfValidity;
 
     @Override
