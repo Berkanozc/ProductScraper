@@ -60,4 +60,28 @@ public class JWTToken {
 
         }
     }
+
+    public static String getJwtEmailClaim() {
+        return JWT_EMAIL_CLAIM;
+    }
+
+    public static String getJwtUseridClaim() {
+        return JWT_USERID_CLAIM;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

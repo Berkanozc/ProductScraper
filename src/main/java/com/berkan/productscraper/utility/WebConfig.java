@@ -14,7 +14,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Value("${jwt.issuer:private company}")
     public String issuer;
 
-    @Value("${jwt.pass-phrase:secret }")
+    @Value("${jwt.pass-phrase:secret blablbalabalbalbalbalablabalbalbalablabalbalablabalbalablablabalb ablablabalbalbal ablaba}")
     public String passPhrase;
 
     @Value("${jwt.duration-of-validity:2400}")
