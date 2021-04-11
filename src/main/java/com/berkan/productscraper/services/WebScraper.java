@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class WebScraper {
     private WebDriver driver;
     private WebStore webStore;
 
+    @Autowired
     public WebScraper() {
         // Initialize WebDriver
         setDriver(new HtmlUnitDriver());
