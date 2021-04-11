@@ -25,6 +25,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.10</version>
@@ -121,6 +126,11 @@
                     <artifactId>jackson-databind</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.berkan</groupId>
+            <artifactId>productscraper</artifactId>
+            <version>0.4.13-SNAPSHOT</version>
         </dependency>
 
     </dependencies>

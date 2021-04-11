@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,7 +56,7 @@ public class AuthenticateController {
             }
         }
 
-        if (user.getHashedPassword().equals(password)) {
+        if (user.getHashedPassword().equals(new BCryptPasswordEncoder().encode(password))) {
             return ResponseEntity
                     .accepted()
                     .header(HttpHeaders.AUTHORIZATION, "Bearer " + generateJWTToken(user))
@@ -84,4 +85,5 @@ public class AuthenticateController {
         JWTToken jwToken = new JWTToken(user.getId(), user.getEmail());
         return jwToken.encode(this.webConfig.issuer, this.webConfig.passPhrase, this.webConfig.tokenDurationOfValidity);
     }
+
 }

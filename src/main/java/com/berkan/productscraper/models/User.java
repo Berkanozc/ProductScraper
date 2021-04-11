@@ -1,6 +1,9 @@
 package com.berkan.productscraper.models;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import javax.persistence.*;
+import java.security.SecureRandom;
 
 @Entity
 @NamedQueries({
@@ -17,11 +20,11 @@ public class User {
     private String hashedPassword;
     private String companyName;
 
-    public User(String firstName, String lastName, String email, String hashedPassword, String companyName) {
+    public User(String firstName, String lastName, String email, String password, String companyName) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.hashedPassword = hashedPassword;
+        this.hashedPassword = new BCryptPasswordEncoder().encode(password);
         this.companyName = companyName;
     }
 
@@ -65,8 +68,8 @@ public class User {
         return hashedPassword;
     }
 
-    public void setHashedPassword(String hashedPassword) {
-        this.hashedPassword = hashedPassword;
+    public void setHashedPassword(String password) {
+        this.hashedPassword = new BCryptPasswordEncoder().encode(password);
     }
 
     public String getCompanyName() {
