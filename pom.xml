@@ -127,11 +127,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
-            <groupId>com.berkan</groupId>
-            <artifactId>productscraper</artifactId>
-            <version>0.4.13-SNAPSHOT</version>
-        </dependency>
 
     </dependencies>
 
