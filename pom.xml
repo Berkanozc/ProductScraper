@@ -18,6 +18,15 @@
         <java.version>11</java.version>
     </properties>
 
+    <profiles>
+        <profile>
+            <id>staging</id>
+            <properties>
+                <activatedProperties>staging</activatedProperties>
+            </properties>
+        </profile>
+    </profiles>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
